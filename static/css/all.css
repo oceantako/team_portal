@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC&display=swap');
+
+.navbar_personal {
+    background: rgb(66, 115, 124);
+    background-image:url("../img/title_back.jpg");
+    background-size: 100%;
+    font-family: 'Amatic SC', cursive;
+    /* font-family: 'Caveat', cursive; */
+}
+
+.title_personal {
+    color: rgb(245, 255, 109);
+}
+
+.works_erea_personal {
+    background: linear-gradient(to bottom, rgb(232, 255, 254),rgb(139, 184, 187));
+}
+
+.membersLoginBtn_personal {
+    background-color: rgb(255, 242, 165);
+}
+
+.login_screen_personal {
+    font-family: 'Amatic SC', cursive;
+}

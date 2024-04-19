@@ -1,0 +1,55 @@
+{% load i18n static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tetrisweb</title>
+    <script src="http://code.jquery.com/jquery.min.js"></script>
+</head>
+<body>
+    <!-- POST用情報を隠し隠し項目として設定 -->
+    {% if userInf %} 
+        <input type="hidden" name="username" id="username" value="{{ userInf.username }}">
+    {% endif %}
+        <input type="hidden" name="checked" id="checked" value="{{ checked }}">
+        <input type="hidden" name="select_human" id="select_human" value="{{ select_human}}">
+
+    <!-- form -->
+    <form name="common_form">
+        {% csrf_token %}
+    </form>
+</body>
+<script>
+    //画面ロード時にpost転送を行う
+    window.onload = function(){
+        let username_val = $('#username').val()
+        let checked_val = $('#checked').val()
+        let select_human_val = $('#select_human').val()
+        multi_post('{% url "works_init" %}', {username: username_val, checked: checked_val, select_human: select_human_val});
+    }
+
+    //POST転送メソッド
+    function multi_post(path, params, method='post') {
+
+        const form = document.common_form;
+        form.method = method;
+        form.action = path;
+
+        for (const key in params) {
+        if (params.hasOwnProperty(key)) {
+            const hiddenField = document.createElement('input');
+            hiddenField.type = 'hidden';
+            hiddenField.name = key;
+            hiddenField.value = params[key];
+
+            form.appendChild(hiddenField);
+        }
+        }
+
+        form.submit();
+    }
+
+</script>
+</html>

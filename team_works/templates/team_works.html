@@ -1,0 +1,172 @@
+{% load i18n static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TEAM MASAYA</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
+     rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link href="{% static 'css/all.css' %}" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery.min.js"></script>
+    <script type="text/javascript" src="{% static 'team_works/team_works.js' %}"></script>
+  </head>
+  <body class="">
+    {% include "modal_w.html" %}
+    <div class="container-fluid">
+        <header>
+          {% include "frame.html" %}
+        </header>
+        <!-- human select var -->
+        {% include "select_var_w.html" %}
+        <!-- human select var -->
+
+        <div class="container-xxl py-4 rounded-3 border border-2 works_erea_personal" style="height:100vh">
+            <div class="row row-cols-auto justify-content-start gy-4">
+
+              {% if all_works %}
+              {% for work in all_works %}
+              <div class="col">
+                <div class="card d-block" style="width: 18rem;">
+                  <img src="{{ MEDIA_URL }}{{ work.picture }}" class="card-img-top" alt="..." style="height: 10rem;" id="{{ work.title }}_image">
+                  <div class="card-body" style="height: 12rem;">
+                    <h5 class="card-title" id="{{ work.title }}_title">{{ work.title }}</h5>
+                    <p class="card-text">{{ work.explanation| truncatechars:80 }}</p>
+                    <input type="hidden" id="{{ work.title }}_explain" value="{{ work.explanation| linebreaks }}">
+                      <div class="position-absolute bottom-0 end-0">
+                        <div class="row">
+                          <!-- <div class="col-5"></div> -->
+                          {% if work.file %}
+                          <a class=" col px-2 py-2" id="{{ work.title }}_file" href="{{ MEDIA_URL }}{{ work.file }}" download>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                              <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                              <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                            </svg>
+                          </a>
+                          {% endif %}
+                          {% if work.link %}
+                          <a class=" col px-2 py-2" id="{{ work.title }}_link" href="{{work.link}}" target="_blank">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-box-arrow-up-right col px-0" viewBox="0 0 16 16">
+                              <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
+                              <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
+                            </svg>
+                          </a>
+                          {% endif %}
+                          <a class=" col px-2 py-2" href="javascript:open_explain('{{ work.title }}');">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-layout-text-sidebar-reverse col px-0" viewBox="0 0 16 16">
+                              <path d="M12.5 3a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1h5zm0 3a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1h5zm.5 3.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 .5-.5zm-.5 2.5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1h5z"/>
+                              <path d="M16 2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2zM4 1v14H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h2zm1 0h9a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5V1z"/>
+                            </svg>
+                          </a>
+                          <div class="col-1"></div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+              {% endif %}
+              {% if checked %} 
+                {% if username == select_human or username == "root" %} 
+                  <div class="col">
+                      <div class="card d-block" style="width: 18rem;">
+                          <div class="card-body d-flex align-items-center justify-content-center btn" style="width: 18rem; height: 22rem;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-plus-circle-dotted" viewBox="0 0 16 16">
+                                <path d="M8 0c-.176 0-.35.006-.523.017l.064.998a7.117 7.117 0 0 1 .918 0l.064-.998A8.113 8.113 0 0 0 8 0zM6.44.152c-.346.069-.684.16-1.012.27l.321.948c.287-.098.582-.177.884-.237L6.44.153zm4.132.271a7.946 7.946 0 0 0-1.011-.27l-.194.98c.302.06.597.14.884.237l.321-.947zm1.873.925a8 8 0 0 0-.906-.524l-.443.896c.275.136.54.29.793.459l.556-.831zM4.46.824c-.314.155-.616.33-.905.524l.556.83a7.07 7.07 0 0 1 .793-.458L4.46.824zM2.725 1.985c-.262.23-.51.478-.74.74l.752.66c.202-.23.418-.446.648-.648l-.66-.752zm11.29.74a8.058 8.058 0 0 0-.74-.74l-.66.752c.23.202.447.418.648.648l.752-.66zm1.161 1.735a7.98 7.98 0 0 0-.524-.905l-.83.556c.169.253.322.518.458.793l.896-.443zM1.348 3.555c-.194.289-.37.591-.524.906l.896.443c.136-.275.29-.54.459-.793l-.831-.556zM.423 5.428a7.945 7.945 0 0 0-.27 1.011l.98.194c.06-.302.14-.597.237-.884l-.947-.321zM15.848 6.44a7.943 7.943 0 0 0-.27-1.012l-.948.321c.098.287.177.582.237.884l.98-.194zM.017 7.477a8.113 8.113 0 0 0 0 1.046l.998-.064a7.117 7.117 0 0 1 0-.918l-.998-.064zM16 8a8.1 8.1 0 0 0-.017-.523l-.998.064a7.11 7.11 0 0 1 0 .918l.998.064A8.1 8.1 0 0 0 16 8zM.152 9.56c.069.346.16.684.27 1.012l.948-.321a6.944 6.944 0 0 1-.237-.884l-.98.194zm15.425 1.012c.112-.328.202-.666.27-1.011l-.98-.194c-.06.302-.14.597-.237.884l.947.321zM.824 11.54a8 8 0 0 0 .524.905l.83-.556a6.999 6.999 0 0 1-.458-.793l-.896.443zm13.828.905c.194-.289.37-.591.524-.906l-.896-.443c-.136.275-.29.54-.459.793l.831.556zm-12.667.83c.23.262.478.51.74.74l.66-.752a7.047 7.047 0 0 1-.648-.648l-.752.66zm11.29.74c.262-.23.51-.478.74-.74l-.752-.66c-.201.23-.418.447-.648.648l.66.752zm-1.735 1.161c.314-.155.616-.33.905-.524l-.556-.83a7.07 7.07 0 0 1-.793.458l.443.896zm-7.985-.524c.289.194.591.37.906.524l.443-.896a6.998 6.998 0 0 1-.793-.459l-.556.831zm1.873.925c.328.112.666.202 1.011.27l.194-.98a6.953 6.953 0 0 1-.884-.237l-.321.947zm4.132.271a7.944 7.944 0 0 0 1.012-.27l-.321-.948a6.954 6.954 0 0 1-.884.237l.194.98zm-2.083.135a8.1 8.1 0 0 0 1.046 0l-.064-.998a7.11 7.11 0 0 1-.918 0l-.064.998zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+                              </svg>
+                          </div>
+                        </div>
+                  </div>
+                {% endif %}
+              {% endif %}
+            </div>
+        </div>
+
+    </div>
+
+    <!-- POST用情報を隠し隠し項目として設定 -->
+    {% if checked %} 
+      <input type="hidden" name="username" id="username" value="{{ username }}">
+    {% endif %}
+    <input type="hidden" name="checked" id="checked" value="{{ checked }}">
+    <input type="hidden" name="select_human" id="select_human" value="{{ select_human}}">
+    <input type="hidden" name="message" id="message" value="{{ message }}">
+
+    <!-- マルチform -->
+    <form name="common_form">
+      {% csrf_token %}
+    </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" 
+     integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+  </body>
+  <script async="async">
+    //画面ロード時にエラーメッセージがあれば表示
+    window.onload = function(){
+      let message_val = $('#message').val()
+      if ( message_val != '') {
+        alert(message_val);
+      }
+    }
+
+    //説明モーダルのオープン処理
+    function open_explain(title) {
+      // モーダルタイトル編集
+      let title_elm = document.getElementById("explain_modal_title");
+      let title_val= document.getElementById(title + "_title").innerHTML;
+      title_elm.innerHTML = title_val;
+
+      // モーダル説明文編集
+      let explain_elm = document.getElementById("explain_modal_explain");
+      let explain_val= document.getElementById(title + "_explain").getAttribute("value");
+      explain_elm.innerHTML = explain_val;
+
+      // モーダル写真編集
+      let image_elm = document.getElementById("explain_modal_image");
+      let image_val= document.getElementById(title + "_image").getAttribute("src");
+      image_elm.setAttribute("src", image_val);
+
+      // モーダルダウンロードリンク編集
+      let file_elm_from = document.getElementById(title + "_file");
+      let file_elm = document.getElementById("explain_modal_footer");
+      if ( file_elm_from ) {
+        let file_val = file_elm_from.getAttribute("href");
+        file_elm.setAttribute("href", file_val);
+        file_elm.setAttribute("style", "");
+      }else{
+        file_elm.setAttribute("style", "display:none;");
+      }
+
+      // モーダルリンク先編集
+      let link_elm_from = document.getElementById(title + "_link");
+      let link_elm = document.getElementById("link_modal_footer");
+      if ( link_elm_from ) {
+        let link_val = link_elm_from.getAttribute("href");
+        link_elm.setAttribute("href", link_val);
+        link_elm.setAttribute("style", "");
+      }else{
+        link_elm.setAttribute("style", "display:none;");
+      }
+
+      const explainModal = new bootstrap.Modal(document.getElementById('exampleModal2'), {});
+      explainModal.show();
+    }
+
+    //削除リンク押下
+    function delete_work() {
+      let title_elm = document.getElementById("explain_modal_title");
+      let delete_title = title_elm.innerHTML;
+
+      window.confirm("「" + delete_title + "」を削除します。よろしいですか？");
+
+      let url = "{% url 'works_delete' %}"
+      let username_val = $('#username').val()
+      let checked_val = $('#checked').val()
+      let select_human_val = $('#select_human').val()
+      
+      multi_post(url, {username: username_val, checked: checked_val, select_human: select_human_val, delete_title: delete_title});
+
+    }
+
+  </script>
+</html>

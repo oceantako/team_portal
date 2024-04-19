@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-lg rounded-2 border border-2 border-warning-subtle navbar_personal">
+    <div class="container-fluid">
+      <a class="navbar-brand p-0" href="#">
+        <!-- <img src="{{ MEDIA_URL }}portal_title/title.png" alt="Bootstrap" width="500" height="50"> -->
+        <div class="fs-2 title_personal">Team Masaya's Portal</div>
+      </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle fs-4" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            member's works
+            </a>
+            <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="javascript:select_page('common','{% url 'works_init' %}');">共通</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="javascript:select_page('masaya','{% url 'works_init' %}');">まーくん</a></li>
+            <li><a class="dropdown-item" href="javascript:select_page('konitan','{% url 'works_init' %}');">こにたん</a></li>
+            <li><a class="dropdown-item" href="javascript:select_page('paisen','{% url 'works_init' %}');">こうじ</a></li>
+            <li><a class="dropdown-item" href="javascript:select_page('leo','{% url 'works_init' %}');">れお</a></li>
+            <li><a class="dropdown-item" href="javascript:select_page('ryotaro','{% url 'works_init' %}');">りょうたろう</a></li>
+            </ul>
+        </li>
+        <!-- <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">活動報告</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">スケジュール</a>
+        </li> -->
+        <!-- <li class="nav-item">
+            <a class="nav-link disabled">Disabled</a>
+        </li> -->
+        </ul>
+        <div class="d-flex" >
+            <button class="btn btn-warning membersLoginBtn_personal border-2 border-warning-subtle" onclick="location.href='{% url 'login' %}'">member's login</button>
+        </div>
+        <!-- <div class="d-flex" >
+          ようこそ、りょうたろうさん！
+        </div> -->
+    </div>
+</div>
+</nav>
